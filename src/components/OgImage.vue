@@ -6,7 +6,7 @@
       'color': textColor,
     }"
   >
-    <div class="relative h-full border-8 border-current rounded-3xl p-[5%]">
+    <div class="relative h-full border-8 border-current rounded-3xl py-[6%] px-[3%]">
       <div
         v-if="icon"
         class="absolute z-10 top-0 left-1/2 w-[8%] p-[1%] -translate-x-1/2 -translate-y-1/2"
