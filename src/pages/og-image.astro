@@ -1,0 +1,25 @@
+---
+import OgImage from '../components/OgImage.vue'
+import '../styles/main.css'
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="generator" content={Astro.generator} />
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <title>og:image</title>
+</head>
+<body>
+  <main class="h-screen w-screen">
+    <OgImage
+      client:load
+      class="h-screen w-screen"
+    />
+  </main>
+</body>
+</html>
