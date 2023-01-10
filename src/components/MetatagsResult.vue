@@ -24,7 +24,7 @@
         <h2 class="text-lg font-semibold text-slate-600 mb-3">
           Twitter Preview
         </h2>
-        <div class="w-[506px] rounded border border-slate-200">
+        <div class="w-[506px] rounded border border-slate-200 mb-12">
           <div
             class="h-[265px] bg-cover rounded-t"
             :style="{ 'background-image': `url(${image})` }"
@@ -41,6 +41,11 @@
             </p>
           </div>
         </div>
+        <h2 class="text-lg font-semibold text-slate-600 mb-3">
+          Title + Description
+        </h2>
+        <p class="text-sm font-semibold">{{ title }}</p>
+        <p class="text-sm font-light text-slate-700">{{ description }}</p>
       </div>
     </div>
   </div>
