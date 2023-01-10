@@ -1,0 +1,9 @@
+{
+  "url": "https://lembdadev.com/posts/5-ways-to-flatten-array-in-js",
+  "title": "Learn How to Flatten a Multi-dimensional Array into a Single-dimensional Array in JavaScript Easily",
+  "description140": "Flattening an array reduces dimensionality from multi to 1D. JavaScript methods like concat(), spread, reduce, stack, & flat() can help convert multi-dimensional to single-dimensional arrays.",
+  "description300": "Flattening an array is a process of reducing the dimensionality of an array from multi dimensions to one dimension array. We can flatten an array in javascript using methods like concat() and spread operator, concat() and apply(), reduce method, stack data structure and the flat() method introduced in ES2019. These methods can help us easily convert a multi-dimensional array into a single dimensional array.",
+  "image": "https://metatagsai.netlify.app/store-temp/kln-001.webp",
+  "twitter": "@unalo_baayriyo",
+  "author": "KLN"
+}
