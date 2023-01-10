@@ -12,7 +12,10 @@
           <div class="flex-grow">
             Copy the code into your website <code>&lt;head&gt;</code>
           </div>
-          <button class="rounded bg-white hover:bg-slate-800 hover:text-white h-8 px-4">
+          <button
+            class="rounded bg-white hover:bg-slate-800 hover:text-white h-8 px-4"
+            @click="codeToClipboard"
+          >
             <FontAwesomeIcon :icon="faCopy" />
             Copy
           </button>
@@ -100,7 +103,7 @@ onMounted(async () => {
 // const twitter = '@lizmhermann'
 // const author = 'Liz Hermann'
 
-const formattedCode = computed(() => hljs.highlight(`<!-- Primary Meta Tags -->
+const code = computed(() => `<!-- Primary Meta Tags -->
 <title>${title.value}</title>
 <link rel="canonical" href="${url.value}" />
 <meta name="title" content="${title.value}">
@@ -124,7 +127,17 @@ const formattedCode = computed(() => hljs.highlight(`<!-- Primary Meta Tags -->
 <meta name="twitter:description" content="${description.value}">
 <meta name="twitter:image" content="${image.value}">
 <meta name="twitter:creator" content="${twitter.value}">
-`, { language: 'xml' }).value)
+`)
+const formattedCode = computed(() => hljs.highlight(code.value, { language: 'xml' }).value)
+
+async function codeToClipboard () {
+  try {
+    await navigator.clipboard.writeText(code.value)
+    console.log('Content copied to clipboard')
+  } catch (err) {
+    console.error('Failed to copy: ', err)
+  }
+}
 </script>
 
 <style scoped>
