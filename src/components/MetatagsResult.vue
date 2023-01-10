@@ -7,10 +7,7 @@
     <div class="grid md:grid-cols-2 gap-12">
       <!-- Tags -->
       <div>
-        <HighlightJs
-          class="hljs-wrapper"
-          :code="code"
-        />
+        <pre class="hljs-wrapper"><code class="hljs" v-html="formattedCode" /></pre>
         <div class="flex items-center rounded-b-xl bg-sky-100 p-3">
           <div class="flex-grow">
             Copy the code into your website <code>&lt;head&gt;</code>
@@ -29,18 +26,18 @@
         </h2>
         <div class="w-[506px] rounded border border-slate-200">
           <div
-            class="h-[252px] bg-cover rounded-t"
+            class="h-[265px] bg-cover rounded-t"
             :style="{ 'background-image': `url(${image})` }"
           />
           <div class="bg-slate-50 rounded-b border-t py-3 px-4">
             <h3 class="text-sm font-semibold">
-              Free Fullscreen Countdown Timer for Presentations and Events
+              {{ title }}
             </h3>
             <p class="text-sm h-[2.6em] font-light text-slate-700 leading-tight text-ellipsis line-clamp-2 mt-1">
-              With Stagetimer's free countdown timer, keep teams on track &amp; on schedule w/ an easy-to-use interface for customizing. Its multiple timer app is great for sharing &amp; coordinating.
+              {{ description }}
             </p>
             <p class="text-sm font-light text-slate-400 mt-1">
-              stagetimer.io
+              {{ host }}
             </p>
           </div>
         </div>
@@ -50,49 +47,79 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import hljs from 'highlight.js/lib/common'
-import hljsVuePlugin from '@highlightjs/vue-plugin'
-import 'highlight.js/styles/arduino-light.css'
+import { ref, computed, onMounted } from 'vue'
+import hljs from 'highlight.js'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCopy } from '@fortawesome/free-solid-svg-icons'
+import 'highlight.js/styles/arduino-light.css'
+import axios from 'axios'
+// import { initializeApp } from 'firebase/app'
+// import { getFirestore } from 'firebase/firestore'
 
-const url = 'https://staging.stagetimer.io/blog/free-fullscreen-countdown-timer-for-presentations-and-events/'
-const title = 'Free Fullscreen Countdown Timer for Presentations and Events'
-const description = "With Stagetimer's free countdown timer, keep teams on track & on schedule w/ an easy-to-use interface for customizing. Its multiple timer app is great for sharing & coordinating."
-const image = 'https://pub-3b6b2a986373426b9a2ab5f6aeef8800.r2.dev/liz-hermann-002.webp'
-const date = new Date().toISOString()
-const twitter = '@lizmhermann'
-const author = 'Liz Hermann'
+// Firebase
+// const app = initializeApp(firebaseConfig)
+// const db = getFirestore(app)
 
-const code = computed(() => `<!-- Primary Meta Tags -->
-<title>${title}</title>
-<link rel="canonical" href="${url}" />
-<meta name="title" content="${title}">
-<meta name="description" content="${description}">
+const url = ref('')
+const title = ref('')
+const description = ref('')
+const image = ref('')
+const date = ref('')
+const twitter = ref('')
+const author = ref('')
+const host = ref('')
+
+onMounted(async () => {
+  const params = new URLSearchParams(window.location.search)
+  const id = params.get('id')
+  try {
+    const { data } = await axios.get(`/store-temp/${id}.json`)
+    console.log(data)
+    url.value = data.url
+    title.value = data.title
+    description.value = data.description140
+    image.value = data.image
+    twitter.value = data.twitter
+    author.value = data.author
+    host.value = new URL(data.url).host
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+// const url = 'https://staging.stagetimer.io/blog/free-fullscreen-countdown-timer-for-presentations-and-events/'
+// const title = 'Free Fullscreen Countdown Timer for Presentations and Events'
+// const description = "With Stagetimer's free countdown timer, keep teams on track & on schedule w/ an easy-to-use interface for customizing. Its multiple timer app is great for sharing & coordinating."
+// const image = 'https://pub-3b6b2a986373426b9a2ab5f6aeef8800.r2.dev/liz-hermann-002.webp'
+// const date = new Date().toISOString()
+// const twitter = '@lizmhermann'
+// const author = 'Liz Hermann'
+
+const formattedCode = computed(() => hljs.highlight(`<!-- Primary Meta Tags -->
+<title>${title.value}</title>
+<link rel="canonical" href="${url.value}" />
+<meta name="title" content="${title.value}">
+<meta name="description" content="${description.value}">
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="${url}">
-<meta property="og:title" content="${title}">
-<meta property="og:description" content="${description}">
-<meta property="og:image" content="${image}">
+<meta property="og:url" content="${url.value}">
+<meta property="og:title" content="${title.value}">
+<meta property="og:description" content="${description.value}">
+<meta property="og:image" content="${image.value}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
-<meta property="article:published_time" content="${date}">
-<meta property="article:author" content="${author}">
+<meta property="article:published_time" content="${date.value}">
+<meta property="article:author" content="${author.value}">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="${url}">
-<meta name="twitter:title" content="${title}">
-<meta name="twitter:description" content="${description}">
-<meta name="twitter:image" content="${image}">
-<meta name="twitter:creator" content="${twitter}">
-
-`)
-
-const HighlightJs = hljsVuePlugin.component
+<meta name="twitter:url" content="${url.value}">
+<meta name="twitter:title" content="${title.value}">
+<meta name="twitter:description" content="${description.value}">
+<meta name="twitter:image" content="${image.value}">
+<meta name="twitter:creator" content="${twitter.value}">
+`, { language: 'xml' }).value)
 </script>
 
 <style scoped>
