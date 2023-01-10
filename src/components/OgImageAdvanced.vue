@@ -1,16 +1,24 @@
 <template>
   <div
-    class="relative h-screen w-screen bg-cover bg-center"
-    :style="{
-      'background-image': `url(${image})`,
-    }"
+    class="relative h-screen w-screen"
   >
-    <div class="absolute z-10 inset-0 bg-black/20" />
-    <div class="absolute z-20 inset-0 bg-gradient-to-t from-black/50 mix-blend-overlay" />
+    <template v-if="image">
+      <div class="absolute z-10 bg-cover bg-center" :style="{ 'background-image': `url(${image})` }" />
+      <div class="absolute z-20 inset-0 bg-black/20" />
+    </template>
+    <template v-else>
+      <div
+        class="absolute z-10 inset-0 bg-gradient-to-tl"
+        :style="{
+          '--tw-gradient-stops': 'var(--tw-gradient-from), var(--tw-gradient-to)',
+          '--tw-gradient-from': bgColorA,
+          '--tw-gradient-to': bgColorB,
+        }"
+      />
+    </template>
+    <div class="absolute z-30 inset-0 bg-gradient-to-t from-black/50 mix-blend-overlay" />
     <div class="relative z-50 h-full py-[3vh] pl-[5vw] pr-[3vw] drop-shadow text-white">
-      <div class="h-2/6">
-        <!-- Nothing -->
-      </div>
+      <div class="h-2/6" />
       <div class="h-3/6">
         <TextfitContainer
           class="font-semibold"
@@ -45,8 +53,23 @@
 </template>
 
 <script setup>
+import ColorHash from 'color-hash'
+import getContrastingColor from '../utils/getContrastingColor.js'
 import TextfitContainer from './TextfitContainer.vue'
 import { ref, computed, onMounted } from 'vue'
+
+const colorHashA = new ColorHash({
+  hue: { min: 60, max: 360 },
+  saturation: 0.9,
+  lightness: 0.3,
+})
+const colorHashB = new ColorHash({
+  hue: { min: 0, max: 300 },
+  saturation: 0.6,
+  lightness: 0.45,
+})
+const bgColorA = computed(() => colorHashA.hex(title.value))
+const bgColorB = computed(() => colorHashB.hex(title.value))
 
 const title = ref('')
 const icon = ref('')
@@ -64,6 +87,4 @@ onMounted(() => {
   authorImage.value = params.get('author-image')
   authorMeta.value = params.get('author-meta')
 })
-
-// http://localhost:3000/og-image-2/?title=Introducing+Stagetimer%E2%80%99s+Fullscreen+Timer+View&icon=https%3A%2F%2Fstagetimer.io%2Fapple-touch-icon.png&image=https%3A%2F%2Fdsc.cloud%2Fcodethink%2Fpexels-pixabay-39396-CN4IIxyR.jpg&author=Liz+Hermann&author-image=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F1474102629961711624%2FJx-HUZYV_400x400.jpg&author-meta=3+min+read
 </script>

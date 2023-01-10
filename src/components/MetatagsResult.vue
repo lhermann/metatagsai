@@ -30,7 +30,7 @@
         <div class="w-[506px] rounded border border-slate-200">
           <div
             class="h-[252px] bg-cover rounded-t"
-            :style="{ 'background-image': 'url(https://stagetimer.io/assets/stagetimer-preview-v3.jpg)' }"
+            :style="{ 'background-image': `url(${image})` }"
           />
           <div class="bg-slate-50 rounded-b border-t py-3 px-4">
             <h3 class="text-sm font-semibold">
@@ -60,7 +60,7 @@ import { faCopy } from '@fortawesome/free-solid-svg-icons'
 const url = 'https://staging.stagetimer.io/blog/free-fullscreen-countdown-timer-for-presentations-and-events/'
 const title = 'Free Fullscreen Countdown Timer for Presentations and Events'
 const description = "With Stagetimer's free countdown timer, keep teams on track & on schedule w/ an easy-to-use interface for customizing. Its multiple timer app is great for sharing & coordinating."
-const image = "https://stagetimer.io/assets/stagetimer-preview-v3.jpg"
+const image = "https://pub-3b6b2a986373426b9a2ab5f6aeef8800.r2.dev/liz-hermann-001.webp"
 const date = new Date().toISOString()
 const twitter = '@lizmhermann'
 const author = 'Liz Hermann'
