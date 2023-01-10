@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import MetatagsResult from '../components/MetatagsResult.vue'
+---
+
+<BaseLayout title="og:image">
+  <main class="p-20">
+    <MetatagsResult client:only />
+  </main>
+</BaseLayout>
