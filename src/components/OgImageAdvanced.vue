@@ -18,8 +18,8 @@
     </template>
     <div class="absolute z-30 inset-0 bg-gradient-to-t from-black/50 mix-blend-overlay" />
     <div class="relative z-50 h-full py-[3vh] pl-[5vw] pr-[3vw] drop-shadow text-white">
-      <div class="h-2/6" />
-      <div class="h-3/6 pb-[5vh]">
+      <div class="h-1/6" />
+      <div class="h-3/6 py-[5vh]">
         <TextfitContainer
           class="font-semibold"
           :options="{ multiLine: true }"
